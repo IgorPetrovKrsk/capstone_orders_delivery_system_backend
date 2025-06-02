@@ -1,9 +1,61 @@
-import {Request,Response} from 'express'
+import { Request, Response } from 'express'
 import Users from '../models/userSchema';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 
-async function getAllUsers(req:Request, res:Response) {
+dotenv.config();
+const jwtSecret = process.env.JWTSECRET ?? '';
+
+
+async function getAllUsers(req: Request, res: Response) {
     const allUsers = await Users.find({});
     res.json(allUsers);
+}
+
+async function login(req: Request, res: Response) {
+    const { username, password } = req.body;
+    if (!username || !password) {
+        res.status(400).json({ error: [{ msg: 'Username and password are required.' }] });
+        return;
+    }
+    try {
+        let user = await Users.findOne({ username }).select('-password');
+        if (user && user?.password) {
+            const isMatch = await bcrypt.compare(password, user.password)
+            if (!isMatch) {
+                res.status(401).json({ msg: 'Authentication failed' });
+                return;
+            }
+            if (!user.isActive) {
+                res.status(401).json({ msg: 'User is not active. Talk to the GOD (Admin)' });
+                return;
+            }
+            const payload = {
+                user: {
+                    id: user._id
+                }
+            }
+            jwt.sign(payload, jwtSecret, {
+                expiresIn: 360000,
+            }, (err, token) => {
+                if (err) throw err;
+                res.status(201).json({ token });
+                return;
+            });
+            res.status(201).json({ user });
+            return;
+        } else {
+            res.status(401).json({ msg: 'Authentication failed' });
+            return;
+        }
+
+
+    } catch (err) {
+        res.status(500).json({ error: [{ msg: 'Server error.' }] });
+        return;
+    }
+
 }
 
 // async function getOrdersByLicensePlate(req:Request, res:Response) {
@@ -26,5 +78,5 @@ async function getAllUsers(req:Request, res:Response) {
 //     res.status(204).json({ status: `All delivered orders has been deleted.` });
 // }
 
-//export default { getAllOrders, postNewOrder, deleteDelivered, getOrdersByLicensePlate }
+export default { login, getAllUsers }
 

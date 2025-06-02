@@ -4,6 +4,7 @@ import Auth from '../middleware/auth';
 
 const router = express.Router();
 
+router.post('/login',userCTRL.login);
 router.get('/',Auth.auth,Auth.adminAuth,userCTRL.getAllUsers);
 // router.post('/',userCTRL.postNewOrder);
 // router.delete('/deleteDelivered',userCTRL.deleteDelivered);
