@@ -1,20 +1,38 @@
 {
-  "name": "lab-319.5.1-working-with-mongoose",
+  "name": "capstone_orders_delivery_system_backend",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "server.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.mjs"
+    "dev": "nodemon"
   },
   "keywords": [],
-  "author": "",
+  "author": "Igor Petrov",
   "license": "ISC",
-  "description": "",
+  "description": "Transport Management System BackEnd",
   "dependencies": {
+    "@types/cors": "^2.8.18",
+    "@types/jsonwebtoken": "^9.0.9",
+    "@types/winston": "^2.4.4",
     "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.14.0"
-  }
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.2",
+    "@types/node": "^22.15.29",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IgorPetrovKrsk/capstone_orders_delivery_system_backend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/IgorPetrovKrsk/capstone_orders_delivery_system_backend/issues"
+  },
+  "homepage": "https://github.com/IgorPetrovKrsk/capstone_orders_delivery_system_backend#readme"
 }

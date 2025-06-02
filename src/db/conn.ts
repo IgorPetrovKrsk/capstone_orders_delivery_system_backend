@@ -2,14 +2,13 @@ import mongoose from "mongoose";
 import dotenv from 'dotenv';
 
 dotenv.config();
-const mongoUri = process.env.MONGOURI;
-let connection;
+const mongoUri = process.env.MONGOURI ?? '';
+let connection:mongoose.Mongoose;
 
 async function collectDB() {
     try {
         connection = await mongoose.connect(mongoUri);
-        console.log(`Connected to MongoDB (TMS)`);
-        //createValidationRules();
+        console.log(`Connected to MongoDB (TMS)`);        
     } catch (err) {
         console.error(err);
     }
@@ -17,7 +16,7 @@ async function collectDB() {
 
 export async function createValidationRules() {
     const db = connection.connection.db;  //first connection in mongoose, second is MongoDB.
-    await db.command({
+    await db?.command({
         collMod: "trucks",
         validator: {
             $jsonSchema: {
@@ -34,9 +33,6 @@ export async function createValidationRules() {
             }
         }
     });
-
     console.log("Validation rules created successfully!");
-
 }
-
 export default collectDB

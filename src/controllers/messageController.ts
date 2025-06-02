@@ -1,12 +1,13 @@
-import Messages from '../models/messageSchema.js';
+import {Request,Response} from 'express'
+import Messages from '../models/messageSchema';
 
-async function getAllMessages(req, res) {
+async function getAllMessages(req:Request, res:Response) {
     const allMessages = await Messages.find({});
     res.json(allMessages);
 }
 
 
-async function getAllMessagesByStatusOrLicencePlate(req, res) {
+async function getAllMessagesByStatusOrLicencePlate(req:Request, res:Response) {
     let messages = await Messages.find({ truckLicencePlate: req.params.statusOrLicencePlate });
     if (!messages || messages.length == 0) {
         messages = await Messages.find({ status: req.params.statusOrLicencePlate });
@@ -20,14 +21,14 @@ async function getAllMessagesByStatusOrLicencePlate(req, res) {
     }
 }
 
-async function postNewMessage(req, res) {
+async function postNewMessage(req:Request, res:Response) {
     delete req.body.status; //date and status should be schemas default
     delete req.body.date;
     const newMessage = await Messages.create(req.body);
     res.json(newMessage);
 }
 
-async function updateMessageById(req, res) {
+async function updateMessageById(req:Request, res:Response) {
     req.body.date = Date.now();
     let updatedMessage = await Messages.findById(req.params.id);
     if (!updatedMessage) {
@@ -40,7 +41,7 @@ async function updateMessageById(req, res) {
     }
 }
 
-async function deleteMessageById(req, res) {
+async function deleteMessageById(req:Request, res:Response) {
     const deletedMessage = await Messages.findById(req.params.id);
     if (!deletedMessage) {
         res.json({ err: `Cannot find message with id ${req.params.id}` })
@@ -52,7 +53,7 @@ async function deleteMessageById(req, res) {
     }
 }
 
-async function searchForText(req, res) {
+async function searchForText(req:Request, res:Response) {
     let messages = await Messages.find({ $text: { $search: req.params.text } });
     if (!messages || messages.length == 0) {
         res.json({ err: `Cannot find messages with text:${req.params.text}` });

@@ -1,4 +1,5 @@
-function getRootHateoas(req, res) {
+import {Request,Response} from 'express'
+function getRootHateoas(req:Request, res:Response) {
     res.json({
         links: [
             {
