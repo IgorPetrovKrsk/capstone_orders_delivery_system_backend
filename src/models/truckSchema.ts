@@ -18,8 +18,7 @@ const truckSchema = new mongoose.Schema<ITruck>({
         type: String,
         required: [true, 'Licence plate is required'],
         unique: [true, 'Licence plate should be unique']
-    },
-    driver: String,
+    },    
     capacity: {
         type: Number,
         required: true,
