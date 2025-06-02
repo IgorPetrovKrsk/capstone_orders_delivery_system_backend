@@ -1,3 +1,4 @@
+import {Request,Response} from 'express'
 import Orders from '../models/orderSchema';
 
 async function getAllOrders(req:Request, res:Response) {

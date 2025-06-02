@@ -1,5 +1,5 @@
 import express from 'express';
-import truckCTRL from '../controllers/truckController.js';
+import truckCTRL from '../controllers/truckController';
 
 const router = express.Router();
 

@@ -1,3 +1,4 @@
+import {Request,Response} from 'express'
 import Trucks from '../models/truckSchema';
 
 async function getAllTrucks(req:Request, res:Response) {

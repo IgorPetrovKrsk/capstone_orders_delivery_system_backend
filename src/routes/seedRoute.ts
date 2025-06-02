@@ -1,14 +1,13 @@
-import express from 'express';
-import Trucks from '../models/truckSchema.js';
-import Orders from '../models/orderSchema.js';
-import Messages from '../models/messageSchema.js';
-import {trucksSeed,ordersSeed,messagesSeed} from '../seeds/seeds.js';
-import {createValidationRules} from '../db/conn.js'
+import express,{Request,Response} from 'express';
+import Trucks from '../models/truckSchema';
+import Orders from '../models/orderSchema';
+import Messages from '../models/messageSchema';
+import {trucksSeed,ordersSeed,messagesSeed} from '../seeds/seeds';
+import {createValidationRules} from '../db/conn'
 
 const router = express.Router();
 
 router.post('/',async (req:Request,res:Response)=>{
-
  
     console.time('Promise all');
     await Promise.all([Trucks.deleteMany({}), Orders.deleteMany({}), Messages.deleteMany({})]); //awaiting all simultaneously

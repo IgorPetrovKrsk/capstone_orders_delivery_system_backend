@@ -1,6 +1,19 @@
-import mongoose from "mongoose";
+import mongoose, { Document, Model } from "mongoose";
 
-const truckSchema = new mongoose.Schema({
+interface ITruck extends Document {
+  licensePlate: string;
+  driver?: string;
+  capacity: number;
+  status: "Available" | "En Route" | "Idle" | "Repairs";
+}
+
+interface TruckModel extends Model<ITruck> {
+  findAllIdleTrucks(): Promise<ITruck[]>;
+  findAllAvailableTrucks(): Promise<ITruck[]>;
+}
+
+
+const truckSchema = new mongoose.Schema<ITruck>({
     licensePlate: {
         type: String,
         required: [true, 'Licence plate is required'],
@@ -35,4 +48,4 @@ truckSchema.statics.findAllAvailableTrucks = function () {
     return this.find({status: 'Available'});}
 
 
-export default mongoose.model("Truck", truckSchema)
+export default mongoose.model<ITruck, TruckModel>("Truck", truckSchema)

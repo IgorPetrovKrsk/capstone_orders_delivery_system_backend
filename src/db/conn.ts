@@ -26,8 +26,8 @@ export async function createValidationRules() {
                     capacity: {
                         bsonType: "number",
                         minimum: 0,
-                        maximum: 10000,
-                        description: "Capacity cannot exceed 10000"
+                        maximum: 20000,
+                        description: "Capacity cannot exceed 20000"
                     }
                 }
             }

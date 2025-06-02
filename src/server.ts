@@ -27,7 +27,7 @@ const logger = winston.createLogger({
     ]
 });
 
-logger.info('This is a test winston message');
+//logger.info('This is a test winston message');
 
 //winston to log all incoming http requests
 app.use((req, res, next) => {
@@ -35,13 +35,13 @@ app.use((req, res, next) => {
     next();
 });
 
-app.get('/', hateoas.getRootHateoas);
+app.get('/api/v1', hateoas.getRootHateoas);
 
-app.use('/seed', seedRoute); //seeding
+app.use('/api/v1/seed', seedRoute); //seeding
 
-app.use('/trucks', truckRoutes);
-app.use('/messages', messageRoutes);
-app.use('/orders', orderRoutes);
+app.use('/api/v1/trucks', truckRoutes);
+app.use('/api/v1/messages', messageRoutes);
+app.use('/api/v1/orders', orderRoutes);
 
 app.use(global404Handler); //404 handler
 
