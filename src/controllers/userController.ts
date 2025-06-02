@@ -3,7 +3,6 @@ import Users from '../models/userSchema';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import { log } from 'console';
 
 dotenv.config();
 const jwtSecret = process.env.JWTSECRET ?? '';
@@ -57,26 +56,34 @@ async function login(req: Request, res: Response) {
 
 }
 
-// async function getOrdersByLicensePlate(req:Request, res:Response) {
-//     const orders = await Orders.find({ truckLicencePlate: req.params.licensePlate });
-//     if (!orders || orders.length == 0) {
-//         res.json({ err: `Cannot find orders for truck with license plate ${req.params.licensePlate}` })
-//     } else {
-//         res.json(orders);
-//     }
-// }
+async function createNewUser(req: Request, res: Response) {
+    const { username, password, role, truck } = req.body;
+    if (!username || !password || !role) {
+        res.status(400).json({ error: [{ msg: 'Username, role and password are required.' }] });
+        return;
+    }
+    let user = await Users.findOne({ username });
+    if (user) {
+        res.status(400).json({ error: [{ msg: 'Username already exists'}] });
+        return;
+    }
 
-// async function postNewOrder(req:Request, res:Response) {
-//     delete req.body.status; //date and status should be schemas default
-//     const newOrder = await Orders.create(req.body);
-//     res.status(201).json(newOrder);
-// }
+    user = new Users({ username, role,truck});
+
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(password, salt);
+
+    await user.save();
+    res.status(200).json({ status: [{ msg: `User ${user.username} has been created.` }] });
+    return;
+}
 
 async function deleteUserById(req: Request, res: Response) {
     const userId = req.params.userId;
     const deletedUser = await Users.findOneAndDelete({ _id: userId });
     res.status(200).json({ status: [{ msg: `User ${deletedUser?.username} has been deleted.` }] });
+    return;
 }
 
-export default { login, getAllUsers,deleteUserById }
+export default { login, getAllUsers,deleteUserById,createNewUser }
 
