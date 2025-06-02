@@ -8,9 +8,9 @@ const messageSchema = new mongoose.Schema({
     status: {
         type: String,
         enum: {
-            values: ['Pending', 'Delivered', 'Read'],
+            values: ['pending', 'delivered', 'read'],
         },
-        default: 'Pending'
+        default: 'pending'
     },
     order: {
         type: mongoose.Schema.Types.ObjectId,

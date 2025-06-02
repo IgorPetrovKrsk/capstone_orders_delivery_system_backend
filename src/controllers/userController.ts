@@ -89,7 +89,7 @@ async function updateUserById(req: Request, res: Response) {
     const username = req.body.username;
     if (username){
         const user = await Users.findOne({username});
-        if (user){
+        if (user && user._id.toString() != req.params.userId){
             res.json({ err: [{ msg: `User with the username ${username} already exists`}]});
             return;
         }

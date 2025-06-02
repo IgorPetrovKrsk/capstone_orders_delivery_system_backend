@@ -33,8 +33,8 @@ async function updateMessageById(req:Request, res:Response) {
     let updatedMessage = await Messages.findById(req.params.id);
     if (!updatedMessage) {
         res.json({ err: `Cannot find message with id ${req.params.id}` });
-    } else if (updatedMessage.status != 'Pending') {
-        res.json({ err: `Cannot change message witch in not 'Pending' id:${req.params.id}` });
+    } else if (updatedMessage.status != 'pending') {
+        res.json({ err: `Cannot change message witch in not 'pending' id:${req.params.id}` });
     } else {
         await updatedMessage.updateOne(req.body, { new: true });
         res.json(updatedMessage);
@@ -45,8 +45,8 @@ async function deleteMessageById(req:Request, res:Response) {
     const deletedMessage = await Messages.findById(req.params.id);
     if (!deletedMessage) {
         res.json({ err: `Cannot find message with id ${req.params.id}` })
-    } else if (deletedMessage.status != 'Pending') {
-        res.json({ err: `Cannot delete message witch in not 'Pending' id:${req.params.id}` });
+    } else if (deletedMessage.status != 'pending') {
+        res.json({ err: `Cannot delete message witch in not 'pending' id:${req.params.id}` });
     } else {
         await Messages.findByIdAndDelete(req.params.id);
         res.json(deletedMessage);

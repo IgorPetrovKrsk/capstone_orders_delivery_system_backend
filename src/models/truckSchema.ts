@@ -4,7 +4,7 @@ interface ITruck extends Document {
   licensePlate: string;
   driver?: string;
   capacity: number;
-  status: "Available" | "En Route" | "Idle" | "Repairs";
+  status: "available" | "en route" | "idle" | "repairs";
 }
 
 interface TruckModel extends Model<ITruck> {
@@ -28,10 +28,10 @@ const truckSchema = new mongoose.Schema<ITruck>({
     status: {
         type: String,
         enum: {
-            values: ['Available', 'En Route', 'Idle', 'Repairs'],
-            message: '{VALUE} is not a valid status. Please choose from Available, En Route, Idle, or Repairs.'
+            values: ['available', 'en route', 'idle', 'repairs'],
+            message: '{VALUE} is not a valid status. Please choose from available, en route, idle, or repairs.'
         },
-        default: 'Idle'
+        default: 'idle'
     }
 });
 

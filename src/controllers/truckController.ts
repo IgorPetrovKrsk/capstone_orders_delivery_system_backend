@@ -26,7 +26,7 @@ async function getAllTrucks(req: Request, res: Response) {
 
 async function createNewTruck(req: Request, res: Response) {
     const { licensePlate, capacity, status } = req.body;
-    if (!licensePlate || !capacity ) {
+    if (!licensePlate || !capacity) {
         res.status(400).json({ error: [{ msg: 'licensePlate and capacity are required.' }] });
         return;
     }
@@ -40,21 +40,27 @@ async function createNewTruck(req: Request, res: Response) {
     return;
 }
 
-// async function updateTruckByLicensePlate(req:Request, res:Response) {
-//     const updatedTruck = await Trucks.findOneAndUpdate({ licensePlate: req.params.licensePlate }, req.body, { new: true });
-//     if (!updatedTruck) {
-//         res.json({ err: `Cannot find truck with license plate ${req.params.licensePlate}` })
-//     }
-//     res.json(updatedTruck);
-// }
+async function updateTruckById(req: Request, res: Response) {
+    const licensePlate = req.body.licensePlate;
+    if (licensePlate) {
+        const truck = await Trucks.findOne({ licensePlate });
+        if (truck && truck._id != req.params.truckId) {
+            res.status(400).json({ error: [{ msg: `Truck with the licenseplate ${licensePlate} already exists` }] });
+            return;
+        }
+    }
+    const updatedTruck = await Trucks.findOneAndUpdate({ _id: req.params.truckId }, req.body, { new: true, runValidators: true });
+    if (!updatedTruck) {
+        res.status(400).json({ error: [{ msg: `Cannot update truck with id ${req.params.truckId}` }] });
+    }
+    res.json(updatedTruck);
+}
 
-// async function deleteTruckByLicensePlate(req:Request, res:Response) {
-//     const deletedTruck = await Trucks.findOneAndDelete({ licensePlate: req.params.licensePlate });
-//     if (!deletedTruck) {
-//         res.json({ err: `Cannot find truck with license plate ${req.params.licensePlate}` })
-//     }
-//     res.json(deletedTruck);
-// }
+async function deleteTruckById(req: Request, res: Response) {
+    const deletedTruck = await Trucks.findOneAndDelete({ _id: req.params.truckId });
+    res.status(200).json({ status: [{ msg: `Truck ${deletedTruck?.licensePlate} has been deleted.` }] });
+    return;
+}
 
-export default { getAllTrucks, createNewTruck }
+export default { getAllTrucks, createNewTruck, updateTruckById, deleteTruckById }
 
