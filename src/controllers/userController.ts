@@ -20,7 +20,7 @@ async function login(req: Request, res: Response) {
         return;
     }
     try {
-        let user = await Users.findOne({ username }).select('-password');
+        let user = await Users.findOne({ username });
         if (user && user?.password) {
             const isMatch = await bcrypt.compare(password, user.password)
             if (!isMatch) {
@@ -42,9 +42,7 @@ async function login(req: Request, res: Response) {
                 if (err) throw err;
                 res.status(201).json({ token });
                 return;
-            });
-            res.status(201).json({ user });
-            return;
+            });            
         } else {
             res.status(401).json({ msg: 'Authentication failed' });
             return;
