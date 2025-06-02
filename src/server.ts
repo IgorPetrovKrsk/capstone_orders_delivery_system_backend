@@ -42,6 +42,7 @@ app.use('/api/v1/seed', seedRoute); //seeding
 app.use('/api/v1/trucks', truckRoutes);
 app.use('/api/v1/messages', messageRoutes);
 app.use('/api/v1/orders', orderRoutes);
+app.use('/api/v1/users', usersRoutes);
 
 app.use(global404Handler); //404 handler
 
