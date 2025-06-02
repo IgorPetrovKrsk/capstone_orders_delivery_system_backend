@@ -39,6 +39,7 @@ export const ordersSeed = [
 
 export const usersSeed = [
   { username: "admin", role: "admin", isActive: true, password:'$2b$10$uC/lgj03Zyaa/bWdgHk.Ju2Wi3JIRyDvIWwi77r3RK/V6ECw9GFWK'},
+  { username: "dispatcher", role: "dispatcher", isActive: true, password:'$2b$10$NAobnL/V45tPg72yxWBM/.MP5GiFFAhIs4pHT4b/RfTqaSw6gPF9K'},  
   { username: "admin1", role: "admin", isActive: true },
   { username: "dispatcher1", role: "dispatcher", isActive: true },
   { username: "driver1", role: "driver", isActive: true },
