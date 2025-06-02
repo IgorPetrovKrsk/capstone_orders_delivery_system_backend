@@ -3,6 +3,7 @@ import Users from '../models/userSchema';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import { log } from 'console';
 
 dotenv.config();
 const jwtSecret = process.env.JWTSECRET ?? '';
@@ -40,9 +41,9 @@ async function login(req: Request, res: Response) {
                 expiresIn: 360000,
             }, (err, token) => {
                 if (err) throw err;
-                res.status(201).json({ 'x-auth-token':token });
+                res.status(201).json({ 'x-auth-token': token });
                 return;
-            });            
+            });
         } else {
             res.status(401).json({ msg: 'Authentication failed' });
             return;
@@ -71,10 +72,11 @@ async function login(req: Request, res: Response) {
 //     res.status(201).json(newOrder);
 // }
 
-// async function deleteDelivered(req:Request, res:Response) {
-//     const deletedTruck = await Orders.deleteMany({ status: 'Delivered' });
-//     res.status(204).json({ status: `All delivered orders has been deleted.` });
-// }
+async function deleteUserById(req: Request, res: Response) {
+    const userId = req.params.userId;
+    const deletedUser = await Users.findOneAndDelete({ _id: userId });
+    res.status(200).json({ status: [{ msg: `User ${deletedUser?.username} has been deleted.` }] });
+}
 
-export default { login, getAllUsers }
+export default { login, getAllUsers,deleteUserById }
 
