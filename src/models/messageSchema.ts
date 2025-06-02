@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 
 const messageSchema = new mongoose.Schema({
-    truckLicencePlate: {
-        type: String,
-        required: [true, 'Licence plate is required']
+    truck: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Truck"
     },
     status: {
         type: String,
@@ -12,7 +12,10 @@ const messageSchema = new mongoose.Schema({
         },
         default: 'Pending'
     },
-    orderId: String,
+    order: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Order"
+    },
     content: {
         type: String,
         required: [true, 'Message cannot be empty']
@@ -26,6 +29,6 @@ const messageSchema = new mongoose.Schema({
 messageSchema.index({ truckLicencePlate: 1 });
 messageSchema.index({ status: 1 });
 messageSchema.index({ date: -1 }); //to find all messages from today or last day.
-messageSchema.index({'$**': 'text'}); //wildcard index for full text search
+messageSchema.index({ '$**': 'text' }); //wildcard index for full text search
 
 export default mongoose.model("Message", messageSchema)
