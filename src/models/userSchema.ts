@@ -1,5 +1,12 @@
 import mongoose from "mongoose";
 
+export enum UserRoles {
+  admin = "admin",
+  dispatcher = "dispatcher",
+  driver = "driver",
+}
+
+
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
