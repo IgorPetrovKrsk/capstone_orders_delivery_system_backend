@@ -64,11 +64,11 @@ async function createNewUser(req: Request, res: Response) {
     }
     let user = await Users.findOne({ username });
     if (user) {
-        res.status(400).json({ error: [{ msg: 'Username already exists'}] });
+        res.status(400).json({ error: [{ msg: `User with the username ${username} already exists` }] });
         return;
     }
 
-    user = new Users({ username, role,truck});
+    user = new Users({ username, role, truck });
 
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(password, salt);
@@ -85,5 +85,25 @@ async function deleteUserById(req: Request, res: Response) {
     return;
 }
 
-export default { login, getAllUsers,deleteUserById,createNewUser }
+async function updateUserById(req: Request, res: Response) {
+    const username = req.body.username;
+    if (username){
+        const user = await Users.findOne({username});
+        if (user){
+            res.json({ err: [{ msg: `User with the username ${username} already exists`}]});
+            return;
+        }
+    }
+    const password = req.body.password;
+    if (password) {
+        const salt = await bcrypt.genSalt(10);
+        req.body.password = await bcrypt.hash(password, salt);
+    }
+    const updatedUser = await Users.findOneAndUpdate({ _id: req.params.userId }, req.body, { new: true, runValidators: true }).select('-password'); //should not return password
+    if (!updatedUser) {
+        res.json({ err: [{ msg: `Cannot find user with id ${req.params.userId}` }] })
+    }
+    res.json(updatedUser);
+}
+export default { login, getAllUsers, deleteUserById, createNewUser, updateUserById }
 
