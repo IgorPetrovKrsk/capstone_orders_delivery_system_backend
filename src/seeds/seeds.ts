@@ -14,7 +14,7 @@ export const trucksSeed = [
 export const messagesSeed = [
   { truck: null, order: null, status: "pending", content: "Truck assignment is pending for this order.", date: new Date("2025-06-02T08:30:00Z") },
   { truck: null, order: null, status: "delivered", content: "Order has been successfully delivered.", date: new Date("2025-06-01T14:00:00Z") },
-  { truck: null, order: null, status: "eead", content: "Confirmation received. Status updated.", date: new Date("2025-06-02T10:15:00Z") },
+  { truck: null, order: null, status: "read", content: "Confirmation received. Status updated.", date: new Date("2025-06-02T10:15:00Z") },
   { truck: null, order: null, status: "pending", content: "Awaiting truck assignment for delivery.", date: new Date("2025-06-02T09:45:00Z") },
   { truck: null, order: null, status: "delivered", content: "Delivery completed successfully.", date: new Date("2025-06-01T16:30:00Z") },
   { truck: null, order: null, status: "pending", content: "New message received regarding order dispatch.", date: new Date("2025-06-02T11:00:00Z") },
