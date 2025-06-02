@@ -48,5 +48,15 @@ async function adminAuth(req: RequestWithUser, res: Response, next: NextFunction
     }
 }
 
+async function dispatcherAuth(req: RequestWithUser, res: Response, next: NextFunction) {
+    const user = req.user;
+    if (!user || user.role !== UserRoles.dispatcher) {
+        res.status(401).json({ msg: 'Invalid dispatcher token' });
+        return;
+    } else {
+        next();
+        return;
+    }
+}
 
-export default { auth, adminAuth }
+export default {auth, adminAuth,dispatcherAuth}
