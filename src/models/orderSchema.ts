@@ -7,8 +7,8 @@ const orderSchema = new mongoose.Schema({
     },
     originCoordinates: {
         type: {
-            longitude: { type: Number, required: true },
             latitude: { type: Number, required: true },
+            longitude: { type: Number, required: true },
         },
         required: true
     },
@@ -18,8 +18,8 @@ const orderSchema = new mongoose.Schema({
     },
     destinationCoordinates: {
         type: {
-            longitude: { type: Number, required: true },
             latitude: { type: Number, required: true },
+            longitude: { type: Number, required: true },
         },
         required: true
     },
@@ -28,7 +28,7 @@ const orderSchema = new mongoose.Schema({
         enum: {
             values: ['pending', 'assigned', 'delivered', 'returned'],
         },
-        default: 'Pending'
+        default: 'pending'
     },
     weight: {
         type: Number,

@@ -36,7 +36,7 @@ async function createNewTruck(req: Request, res: Response) {
         return;
     }
     const newTruck = await Trucks.create(req.body);
-    res.status(200).json({ status: [{ msg: `Truck ${newTruck.licensePlate} has been created.` }] });
+    res.status(201).json(newTruck);
     return;
 }
 

@@ -25,21 +25,21 @@ export const messagesSeed = [
 ];
 
 export const ordersSeed = [
-  { origin: "Union Station", originCoordinates: { longitude: -104.9995, latitude: 39.7541 }, destination: "Denver International Airport", destinationCoordinates: { longitude: -104.6737, latitude: 39.8561 }, status: "pending", weight: 5000, truck: null },
-  { origin: "Capitol Hill", originCoordinates: { longitude: -104.9847, latitude: 39.7392 }, destination: "Cherry Creek Shopping Center", destinationCoordinates: { longitude: -104.9499, latitude: 39.7115 }, status: "assigned", weight: 7500, truck: null },
-  { origin: "Washington Park", originCoordinates: { longitude: -104.9644, latitude: 39.7035 }, destination: "Denver Tech Center", destinationCoordinates: { longitude: -104.8987, latitude: 39.6237 }, status: "delivered", weight: 3000, truck: null },
-  { origin: "LoDo (Lower Downtown)", originCoordinates: { longitude: -104.9935, latitude: 39.7528 }, destination: "City Park", destinationCoordinates: { longitude: -104.955, latitude: 39.7483 }, status: "returned", weight: 9500, truck: null },
-  { origin: "South Broadway", originCoordinates: { longitude: -104.9877, latitude: 39.6905 }, destination: "University of Denver", destinationCoordinates: { longitude: -104.9663, latitude: 39.6767 }, status: "assigned", weight: 6000, truck: null },
-  { origin: "Five Points", originCoordinates: { longitude: -104.9785, latitude: 39.7575 }, destination: "Sloan's Lake Park", destinationCoordinates: { longitude: -105.0488, latitude: 39.7569 }, status: "pending", weight: 8000, truck: null },
-  { origin: "RiNo (River North Art District)", originCoordinates: { longitude: -104.971, latitude: 39.7685 }, destination: "Highlands", destinationCoordinates: { longitude: -105.0085, latitude: 39.7597 }, status: "delivered", weight: 1000, truck: null },
-  { origin: "Auraria Campus", originCoordinates: { longitude: -105.0027, latitude: 39.7447 }, destination: "Stapleton", destinationCoordinates: { longitude: -104.883, latitude: 39.7833 }, status: "returned", weight: 4000, truck: null },
-  { origin: "Golden Triangle", originCoordinates: { longitude: -104.9885, latitude: 39.7362 }, destination: "Uptown Denver", destinationCoordinates: { longitude: -104.978, latitude: 39.7421 }, status: "pending", weight: 7000, truck: null },
-  { origin: "East Colfax", originCoordinates: { longitude: -104.9275, latitude: 39.7404 }, destination: "Lowry Field", destinationCoordinates: { longitude: -104.8914, latitude: 39.7167 }, status: "assigned", weight: 500, truck: null }
+  { origin: "Union Station", originCoordinates: { latitude: 39.7541, longitude: -104.9995 }, destination: "Denver International Airport", destinationCoordinates: { latitude: 39.8561, longitude: -104.6737 }, status: "pending", weight: 5000, truck: null },
+  { origin: "Capitol Hill", originCoordinates: { latitude: 39.7392, longitude: -104.9847 }, destination: "Cherry Creek Shopping Center", destinationCoordinates: { latitude: 39.7115, longitude: -104.9499 }, status: "assigned", weight: 7500, truck: null },
+  { origin: "Washington Park", originCoordinates: { latitude: 39.7035, longitude: -104.9644 }, destination: "Denver Tech Center", destinationCoordinates: { latitude: 39.6237, longitude: -104.8987 }, status: "delivered", weight: 3000, truck: null },
+  { origin: "LoDo (Lower Downtown)", originCoordinates: { latitude: 39.7528, longitude: -104.9935 }, destination: "City Park", destinationCoordinates: { latitude: 39.7483, longitude: -104.955 }, status: "returned", weight: 9500, truck: null },
+  { origin: "South Broadway", originCoordinates: { latitude: 39.6905, longitude: -104.9877 }, destination: "University of Denver", destinationCoordinates: { latitude: 39.6767, longitude: -104.9663 }, status: "assigned", weight: 6000, truck: null },
+  { origin: "Five Points", originCoordinates: { latitude: 39.7575, longitude: -104.9785 }, destination: "Sloan's Lake Park", destinationCoordinates: { latitude: 39.7569, longitude: -105.0488 }, status: "pending", weight: 8000, truck: null },
+  { origin: "RiNo (River North Art District)", originCoordinates: { latitude: 39.7685, longitude: -104.971 }, destination: "Highlands", destinationCoordinates: { latitude: 39.7597, longitude: -105.0085 }, status: "delivered", weight: 1000, truck: null },
+  { origin: "Auraria Campus", originCoordinates: { latitude: 39.7447, longitude: -105.0027 }, destination: "Stapleton", destinationCoordinates: { latitude: 39.7833, longitude: -104.883 }, status: "returned", weight: 4000, truck: null },
+  { origin: "Golden Triangle", originCoordinates: { latitude: 39.7362, longitude: -104.9885 }, destination: "Uptown Denver", destinationCoordinates: { latitude: 39.7421, longitude: -104.978 }, status: "pending", weight: 7000, truck: null },
+  { origin: "East Colfax", originCoordinates: { latitude: 39.7404, longitude: -104.9275 }, destination: "Lowry Field", destinationCoordinates: { latitude: 39.7167, longitude: -104.8914 }, status: "assigned", weight: 500, truck: null }
 ];
 
 export const usersSeed = [
-  { username: "admin", role: "admin", isActive: true, password:'$2b$10$uC/lgj03Zyaa/bWdgHk.Ju2Wi3JIRyDvIWwi77r3RK/V6ECw9GFWK'},
-  { username: "dispatcher", role: "dispatcher", isActive: true, password:'$2b$10$NAobnL/V45tPg72yxWBM/.MP5GiFFAhIs4pHT4b/RfTqaSw6gPF9K'},  
+  { username: "admin", role: "admin", isActive: true, password: '$2b$10$uC/lgj03Zyaa/bWdgHk.Ju2Wi3JIRyDvIWwi77r3RK/V6ECw9GFWK' },
+  { username: "dispatcher", role: "dispatcher", isActive: true, password: '$2b$10$NAobnL/V45tPg72yxWBM/.MP5GiFFAhIs4pHT4b/RfTqaSw6gPF9K' },
   { username: "admin1", role: "admin", isActive: true },
   { username: "dispatcher1", role: "dispatcher", isActive: true },
   { username: "driver1", role: "driver", isActive: true },

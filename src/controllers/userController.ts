@@ -74,7 +74,8 @@ async function createNewUser(req: Request, res: Response) {
     user.password = await bcrypt.hash(password, salt);
 
     await user.save();
-    res.status(200).json({ status: [{ msg: `User ${user.username} has been created.` }] });
+    delete user.password; //removing password from response
+    res.status(201).json(user);    
     return;
 }
 

@@ -1,5 +1,6 @@
 import express from 'express';
 import messageCTRL from '../controllers/messageController';
+import Auth from '../middleware/auth';
 
 const router = express.Router();
 
