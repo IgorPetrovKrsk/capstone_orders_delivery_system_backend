@@ -24,11 +24,11 @@ async function login(req: Request, res: Response) {
         if (user && user?.password) {
             const isMatch = await bcrypt.compare(password, user.password)
             if (!isMatch) {
-                res.status(401).json({ msg: 'Authentication failed' });
+                res.status(401).json({ error: [{ msg: 'Authentication failed' }] });
                 return;
             }
             if (!user.isActive) {
-                res.status(401).json({ msg: 'User is not active. Talk to the GOD (Admin)' });
+                res.status(401).json({ error: [{ msg: 'User is not active. Talk to the GOD (Admin)' }] });  
                 return;
             }
             const payload = {
@@ -91,7 +91,7 @@ async function updateUserById(req: Request, res: Response) {
     if (username){
         const user = await Users.findOne({username});
         if (user && user._id.toString() != req.params.userId){
-            res.json({ err: [{ msg: `User with the username ${username} already exists`}]});
+            res.json({ error: [{ msg: `User with the username ${username} already exists`}]});
             return;
         }
     }

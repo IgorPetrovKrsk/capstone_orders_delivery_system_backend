@@ -40,7 +40,7 @@ async function auth(req: RequestWithUser, res: Response, next: NextFunction) {
 async function adminAuth(req: RequestWithUser, res: Response, next: NextFunction) {
     const user = req.user;
     if (!user || user.role !== UserRoles.admin) {
-        res.status(401).json({ msg: 'Invalid admin token' });
+        res.status(401).json({ errors: [{ msg: 'Invalid admin token' }]});
         return;
     } else {
         next();
@@ -51,7 +51,7 @@ async function adminAuth(req: RequestWithUser, res: Response, next: NextFunction
 async function dispatcherAuth(req: RequestWithUser, res: Response, next: NextFunction) {
     const user = req.user;
     if (!user || user.role !== UserRoles.dispatcher) {
-        res.status(401).json({ msg: 'Invalid dispatcher token' });
+        res.status(401).json({ errors: [{ msg: 'Invalid dispatcher token'}]});
         return;
     } else {
         next();
