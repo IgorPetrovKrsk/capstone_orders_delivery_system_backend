@@ -44,7 +44,7 @@ async function login(req: Request, res: Response) {
                 return;
             });
         } else {
-            res.status(401).json({ msg: 'Authentication failed' });
+            res.status(401).json({ error: [{ msg: 'Authentication failed' }] });
             return;
         }
 
