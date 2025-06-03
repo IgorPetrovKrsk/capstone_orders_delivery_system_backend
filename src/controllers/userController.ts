@@ -4,6 +4,10 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 
+interface RequestWithUser extends Request {
+    user?: any; //should define user folowing the User schema
+}
+
 dotenv.config();
 const jwtSecret = process.env.JWTSECRET ?? '';
 
@@ -28,7 +32,7 @@ async function login(req: Request, res: Response) {
                 return;
             }
             if (!user.isActive) {
-                res.status(401).json({ error: [{ msg: 'User is not active. Talk to the GOD (Admin)' }] });  
+                res.status(401).json({ error: [{ msg: 'User is not active. Talk to the GOD (Admin)' }] });
                 return;
             }
             const payload = {
@@ -47,8 +51,6 @@ async function login(req: Request, res: Response) {
             res.status(401).json({ error: [{ msg: 'Authentication failed' }] });
             return;
         }
-
-
     } catch (err) {
         res.status(500).json({ error: [{ msg: 'Server error.' }] });
         return;
@@ -75,7 +77,7 @@ async function createNewUser(req: Request, res: Response) {
 
     await user.save();
     delete user.password; //removing password from response
-    res.status(201).json(user);    
+    res.status(201).json(user);
     return;
 }
 
@@ -88,10 +90,10 @@ async function deleteUserById(req: Request, res: Response) {
 
 async function updateUserById(req: Request, res: Response) {
     const username = req.body.username;
-    if (username){
-        const user = await Users.findOne({username});
-        if (user && user._id.toString() != req.params.userId){
-            res.json({ error: [{ msg: `User with the username ${username} already exists`}]});
+    if (username) {
+        const user = await Users.findOne({ username });
+        if (user && user._id.toString() != req.params.userId) {
+            res.json({ error: [{ msg: `User with the username ${username} already exists` }] });
             return;
         }
     }
@@ -106,5 +108,14 @@ async function updateUserById(req: Request, res: Response) {
     }
     res.json(updatedUser);
 }
-export default { login, getAllUsers, deleteUserById, createNewUser, updateUserById }
+
+async function getUserByToken(req: RequestWithUser, res: Response) {
+    if (!req.user.isActive) {
+        res.status(401).json({ error: [{ msg: 'User is not active. Talk to the GOD (Admin)' }] });
+        return;
+    }
+    res.json(req.user); //user was decoded by Auth middleware    
+}
+
+export default { login, getAllUsers, deleteUserById, createNewUser, updateUserById, getUserByToken }
 
