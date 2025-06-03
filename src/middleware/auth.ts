@@ -17,10 +17,10 @@ dotenv.config();
 const jwtSecret = process.env.JWTSECRET ?? '';
 
 async function auth(req: RequestWithUser, res: Response, next: NextFunction) {
-    const token = req.header('x-auth-token');
+    const token = req.header('to');
 
     if (!token) {
-        res.status(401).json({ errors: [{ msg: 'No Token, Auth Denied' }] });
+        res.status(401).json({ error: [{ msg: 'No Token, Auth Denied' }] });
         return;
     }
 
@@ -33,14 +33,14 @@ async function auth(req: RequestWithUser, res: Response, next: NextFunction) {
         return;
     } catch (err) {
         console.error(err);
-        res.status(401).json({ errors: [{ msg: 'Token is not Valid ' }] });
+        res.status(401).json({ error: [{ msg: 'Token is not Valid ' }] });
     }
 }
 
 async function adminAuth(req: RequestWithUser, res: Response, next: NextFunction) {
     const user = req.user;
     if (!user || user.role !== UserRoles.admin) {
-        res.status(401).json({ errors: [{ msg: 'Invalid admin token' }]});
+        res.status(401).json({ error: [{ msg: 'Invalid admin token' }]});
         return;
     } else {
         next();
@@ -51,7 +51,7 @@ async function adminAuth(req: RequestWithUser, res: Response, next: NextFunction
 async function dispatcherAuth(req: RequestWithUser, res: Response, next: NextFunction) {
     const user = req.user;
     if (!user || user.role !== UserRoles.dispatcher) {
-        res.status(401).json({ errors: [{ msg: 'Invalid dispatcher token'}]});
+        res.status(401).json({ error: [{ msg: 'Invalid dispatcher token'}]});
         return;
     } else {
         next();

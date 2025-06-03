@@ -44,7 +44,7 @@ async function login(req: Request, res: Response) {
                 expiresIn: 360000,
             }, (err, token) => {
                 if (err) throw err;
-                res.status(201).json({ 'x-auth-token': token });
+                res.status(201).json({ 'token': token });
                 return;
             });
         } else {
