@@ -17,7 +17,7 @@ dotenv.config();
 const jwtSecret = process.env.JWTSECRET ?? '';
 
 async function auth(req: RequestWithUser, res: Response, next: NextFunction) {
-    const token = req.header('to');
+    const token = req.header('token');
 
     if (!token) {
         res.status(401).json({ error: [{ msg: 'No Token, Auth Denied' }] });
