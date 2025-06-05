@@ -31,7 +31,9 @@ const userSchema = new mongoose.Schema({
     {
         type: String
     },
-
+    imgUrl: { 
+        type: String
+    }
 });
 
 userSchema.index({ isActive: 1 });

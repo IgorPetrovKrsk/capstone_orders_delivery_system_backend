@@ -5,6 +5,7 @@ interface ITruck extends Document {
   driver?: string;
   capacity: number;
   status: "available" | "en route" | "idle" | "repairs";
+  imgUrl?: string;
 }
 
 interface TruckModel extends Model<ITruck> {
@@ -32,6 +33,9 @@ const truckSchema = new mongoose.Schema<ITruck>({
             message: '{VALUE} is not a valid status. Please choose from available, en route, idle, or repairs.'
         },
         default: 'idle'
+    },
+    imgUrl: { 
+        type: String
     }
 });
 
