@@ -13,7 +13,7 @@ const jwtSecret = process.env.JWTSECRET ?? '';
 
 
 async function getAllUsers(req: Request, res: Response) {
-    const allUsers = await Users.find({}).select('-password');
+    const allUsers = await Users.find({}).populate('truck').select('-password');
     res.json(allUsers);
 }
 
