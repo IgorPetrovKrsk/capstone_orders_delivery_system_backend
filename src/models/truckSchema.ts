@@ -44,11 +44,11 @@ const truckSchema = new mongoose.Schema<ITruck>({
 truckSchema.index({status:1}); //second index is status because it is common to find all idle or avalable trucks
 
 truckSchema.statics.findAllIdleTrucks = function () {
-    return this.find({status: 'Idle'});
+    return this.find({status: 'idle'});
 }
 
 truckSchema.statics.findAllAvailableTrucks = function () {
-    return this.find({status: 'Available'});}
+    return this.find({status: 'available'});}
 
 
 export default mongoose.model<ITruck, TruckModel>("Truck", truckSchema)
