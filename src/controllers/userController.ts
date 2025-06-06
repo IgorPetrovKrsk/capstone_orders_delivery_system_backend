@@ -59,7 +59,7 @@ async function login(req: Request, res: Response) {
 }
 
 async function createNewUser(req: Request, res: Response) {
-    const { username, password, role, truck } = req.body;
+    const { username, password, role, truck,imgUrl } = req.body;
     if (!username || !password || !role) {
         res.status(400).json({ error: [{ msg: 'Username, role and password are required.' }] });
         return;
@@ -70,7 +70,7 @@ async function createNewUser(req: Request, res: Response) {
         return;
     }
 
-    user = new Users({ username, role, truck });
+    user = new Users({ username, role, truck, imgUrl });
 
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(password, salt);
