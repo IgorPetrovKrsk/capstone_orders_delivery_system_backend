@@ -93,7 +93,7 @@ async function updateUserById(req: Request, res: Response) {
     if (username) {
         const user = await Users.findOne({ username });
         if (user && user._id.toString() != req.params.userId) {
-            res.json({ error: [{ msg: `User with the username ${username} already exists` }] });
+            res.status(400).json({ error: [{ msg: `User with the username ${username} already exists` }] });
             return;
         }
     }
@@ -104,9 +104,9 @@ async function updateUserById(req: Request, res: Response) {
     }
     const updatedUser = await Users.findOneAndUpdate({ _id: req.params.userId }, req.body, { new: true, runValidators: true }).select('-password'); //should not return password
     if (!updatedUser) {
-        res.json({ err: [{ msg: `Cannot find user with id ${req.params.userId}` }] })
+        res.status(400).json({ err: [{ msg: `Cannot find user with id ${req.params.userId}` }] })
     }
-    res.json(updatedUser);
+    res.status(200).json(updatedUser);
 }
 
 async function getUserByToken(req: RequestWithUser, res: Response) {
@@ -114,7 +114,7 @@ async function getUserByToken(req: RequestWithUser, res: Response) {
         res.status(401).json({ error: [{ msg: 'User is not active. Talk to the GOD (Admin)' }] });
         return;
     }
-    res.json(req.user); //user was decoded by Auth middleware    
+    res.status(200).json(req.user); //user was decoded by Auth middleware    
 }
 
 export default { login, getAllUsers, deleteUserById, createNewUser, updateUserById, getUserByToken }
