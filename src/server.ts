@@ -11,6 +11,7 @@ import usersRoutes from './routes/userRoute';
 import seedRoute from './routes/seedRoute';
 import hateoas from './hateos/hateoas';
 import { requestLogger } from './middleware/requestLogger';
+import awsS3Route from './routes/awsS3Route'
 
 dotenv.config();
 const PORT = process.env.PORT;
@@ -29,6 +30,7 @@ app.use('/api/v1/trucks', truckRoutes);
 app.use('/api/v1/messages', messageRoutes);
 app.use('/api/v1/orders', orderRoutes);
 app.use('/api/v1/users', usersRoutes);
+app.use('/api/v1/s3-url', awsS3Route);
 
 app.use(global404Handler); //404 handler
 
