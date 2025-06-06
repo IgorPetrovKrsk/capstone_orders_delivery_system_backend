@@ -15,15 +15,16 @@ const s3 = new S3Client({
 });
 
 export async function getAwsUrl(req: Request, res: Response) {
+    const key = `uploads/${Date.now()}.jpg`
     const command = new PutObjectCommand({
         Bucket: awsBucketName,
-        Key: `uploads/${Date.now()}.jpg`,
+        Key: key,
         ContentType: "image/jpeg",
     });
 
     const url = await getSignedUrl(s3, command, { expiresIn: 60 });
 
-    res.json({ url });
+    res.json({ url,key });
 }
 
 export default { getAwsUrl }
