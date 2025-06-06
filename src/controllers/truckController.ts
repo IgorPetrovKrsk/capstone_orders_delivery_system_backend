@@ -11,10 +11,10 @@ async function getAllTrucks(req: Request, res: Response) {
 //     res.json(allIdleTrucks);
 // }
 
-// async function getAllAvailableTrucks(req:Request, res:Response) {
-//     const allIdleTrucks = await Trucks.findAllAvailableTrucks();
-//     res.json(allIdleTrucks);
-// }
+async function getAvailableTrucks(req:Request, res:Response) {
+    const allIdleTrucks = await Trucks.findAllAvailableTrucks();
+    res.json(allIdleTrucks);
+}
 
 // async function getTruckByLicensePlate(req:Request, res:Response) {
 //     const truck = await Trucks.findOne({ licensePlate: req.params.licensePlate });
@@ -62,5 +62,5 @@ async function deleteTruckById(req: Request, res: Response) {
     return;
 }
 
-export default { getAllTrucks, createNewTruck, updateTruckById, deleteTruckById }
+export default { getAllTrucks, createNewTruck, updateTruckById, deleteTruckById,getAvailableTrucks }
 
