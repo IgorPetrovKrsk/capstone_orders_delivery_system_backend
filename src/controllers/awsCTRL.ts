@@ -5,8 +5,8 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 const awsBucketName = process.env.AWS_BUCKET_NAME;
+const region = process.env.AWS_REGION;
 
-const region = "us-east-2";
 const s3 = new S3Client({
     region: region,
     credentials: {
@@ -23,9 +23,9 @@ export async function getAwsUrl(req: Request, res: Response) {
         Key: key,
         ContentType: "image/jpeg",
     });
-
-    const staticUrl = `https://${awsBucketName}.s3.${region}.amazonaws.com/${key}`;
+    
     const url = await getSignedUrl(s3, command, { expiresIn: 60 });
+    const staticUrl = `https://${awsBucketName}.s3.${region}.amazonaws.com/${key}`;
 
     res.json({ url, staticUrl });
 }
