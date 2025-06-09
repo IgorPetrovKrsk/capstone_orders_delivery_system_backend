@@ -65,7 +65,7 @@ async function deleteOrderById(req: Request, res: Response) {
 
 async function undeliveredOrdersByUserId(req: RequestWithUser, res: Response) {
     if (!req.user.truck){
-        res.status(400).json({ error: [{ msg: `User ${req.user.username} has not been asiigned to a truck.` }] });
+        res.status(400).json({ error: [{ msg: `User ${req.user.username} has not been assigned to a truck.` }] });
         return
     }
     const orders = await Orders.find({status:"assigned",truck: req.user.truck}).populate('truck');
