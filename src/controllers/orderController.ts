@@ -36,6 +36,22 @@ async function updateOrderById(req: Request, res: Response) {
     res.status(201).json(updatedOrder);
 }
 
+async function returnOrderById(req: Request, res: Response) {
+    const returnedOrder = await Orders.findOneAndUpdate({ _id: req.params.orderId }, {status:'returned'} , { new: true, runValidators: true });
+    if (!returnedOrder) {
+        res.status(400).json({ error: [{ msg: `Cannot return order with id ${req.params.orderId}` }] });
+    }
+    res.status(201).json(returnedOrder);
+}
+
+async function deliverOrderById(req: Request, res: Response) {
+    const returnedOrder = await Orders.findOneAndUpdate({ _id: req.params.orderId }, {status:'delivered'} , { new: true, runValidators: true });
+    if (!returnedOrder) {
+        res.status(400).json({ error: [{ msg: `Cannot deliver order with id ${req.params.orderId}` }] });
+    }
+    res.status(201).json(returnedOrder);
+}
+
 async function deleteDelivered(req: Request, res: Response) {
     await Orders.deleteMany({ status: 'delivered' });
     res.status(200).json({ status: [{ msg: `All delivered orders has been deleted.` }] });
@@ -56,5 +72,5 @@ async function undeliveredOrdersByUserId(req: RequestWithUser, res: Response) {
     res.status(200).json(orders);    
 }
 
-export default { getAllOrders, postNewOrder, deleteDelivered, getOrdersByTruckId, deleteOrderById, updateOrderById,undeliveredOrdersByUserId }
+export default { getAllOrders, postNewOrder, deleteDelivered, getOrdersByTruckId, deleteOrderById, updateOrderById,undeliveredOrdersByUserId,returnOrderById,deliverOrderById }
 
