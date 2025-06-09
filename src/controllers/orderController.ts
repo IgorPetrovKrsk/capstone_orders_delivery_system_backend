@@ -1,9 +1,14 @@
 import { Request, Response } from 'express'
 import Orders from '../models/orderSchema';
+import { log } from 'console';
+
+interface RequestWithUser extends Request {
+    user?: any; //should define user folowing the User schema
+}
 
 async function getAllOrders(req: Request, res: Response) {
     const allOrders = await Orders.find({}).populate('truck');
-    res.json(allOrders);
+    res.status(200).json(allOrders);
 }
 
 async function getOrdersByTruckId(req: Request, res: Response) {
@@ -42,5 +47,14 @@ async function deleteOrderById(req: Request, res: Response) {
     return;
 }
 
-export default { getAllOrders, postNewOrder, deleteDelivered, getOrdersByTruckId, deleteOrderById, updateOrderById }
+async function undeliveredOrdersByUserId(req: RequestWithUser, res: Response) {
+    if (!req.user.truck){
+        res.status(400).json({ error: [{ msg: `User ${req.user.username} has not been asiigned to a truck.` }] });
+        return
+    }
+    const orders = await Orders.find({status:"assigned",truck: req.user.truck}).populate('truck');
+    res.status(200).json(orders);    
+}
+
+export default { getAllOrders, postNewOrder, deleteDelivered, getOrdersByTruckId, deleteOrderById, updateOrderById,undeliveredOrdersByUserId }
 
