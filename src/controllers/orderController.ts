@@ -73,7 +73,7 @@ async function undeliveredOrdersByUserId(req: RequestWithUser, res: Response) {
 }
 
 async function pendingAssignedOrders(req: Request, res: Response) {
-    const orders = await Orders.find({status:{$in:['assigned','pending']}});
+    const orders = await Orders.find({status:{$in:['assigned','pending']}}).populate('truck');
     res.status(200).json(orders);    
 }
 
