@@ -72,5 +72,10 @@ async function undeliveredOrdersByUserId(req: RequestWithUser, res: Response) {
     res.status(200).json(orders);    
 }
 
-export default { getAllOrders, postNewOrder, deleteDelivered, getOrdersByTruckId, deleteOrderById, updateOrderById,undeliveredOrdersByUserId,returnOrderById,deliverOrderById }
+async function pendingAssignedOrders(req: Request, res: Response) {
+    const orders = await Orders.find({status:{$in:['assigned','pending']}});
+    res.status(200).json(orders);    
+}
+
+export default { getAllOrders, postNewOrder, deleteDelivered, getOrdersByTruckId, deleteOrderById, updateOrderById,undeliveredOrdersByUserId,returnOrderById,deliverOrderById,pendingAssignedOrders }
 
