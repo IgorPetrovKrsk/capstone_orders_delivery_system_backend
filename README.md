@@ -2,8 +2,6 @@
 
 [FrondEnd GitHub](https://github.com/IgorPetrovKrsk/capstone_orders_delivery_system_frontend)
 
-A lightweight backend messaging module for a logistics/trucking operation. This system allows dispatchers to send messages to trucks, optionally linked to orders. Each message has a delivery status and can be tracked throughout its lifecycle.
-
 ---
 
 ## 📐 Data Model Overview
