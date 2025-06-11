@@ -28,7 +28,12 @@ export default function startWebSocket() {
             const data = JSON.parse(message.toString());
             if (data.user) {
                 const user = data.user;
-                userSocketArray.push({user,ws})                
+                const currentUsersWS = userSocketArray.find(it=> it.user._id == data.user._id);
+                if (currentUsersWS){
+                    currentUsersWS.ws = ws; 
+                } else{
+                    userSocketArray.push({user,ws});
+                }                
                 ws.send(JSON.stringify({from:'Server',message:`User ${data.user.username} has loged in to WebSockets`}));
                 return;
             }
@@ -36,7 +41,7 @@ export default function startWebSocket() {
             if (data.truck && data.message){
                 const recieverWs = userSocketArray.find(it=> it.user.truck == data.truck._id)?.ws;
                 if (recieverWs){
-                    recieverWs.send(JSON.stringify({from:data.from.username,message:data.message}));
+                    recieverWs.send(JSON.stringify({from:data.from.username,message:data.message}));                    
                 }
             }
         });
