@@ -14,7 +14,7 @@ const logger = winston.createLogger({
 
 export default function startWebSocket() {
 
-    const wss_port = Number(process.env.PORT) ?? 3000;
+    const wss_port = Number(process.env.WEB_SOCKET_PORT) ?? 3001;
     const wss = new WebSocket.Server({ port: wss_port });
 
     wss.on('connection', (ws) => {
