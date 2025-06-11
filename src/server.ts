@@ -12,11 +12,14 @@ import seedRoute from './routes/seedRoute';
 import hateoas from './hateos/hateoas';
 import { requestLogger } from './middleware/requestLogger';
 import awsS3Route from './routes/awsS3Route'
+import startWebSocket from './webSocket/ws';
 
 dotenv.config();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT ?? 3000;
 const app = express();
+
 connectDB();
+startWebSocket(); //starting web sockets server
 
 app.use(cors());
 app.use(express.json());
