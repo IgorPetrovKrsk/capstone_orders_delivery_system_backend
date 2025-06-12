@@ -13,9 +13,9 @@ This is the backend service for the Transport Management System. It handles user
 ## 🚀 Features
 
 - User roles: Admin, Dispatcher, Driver
-- CRUD operations for Orders and Trucks
+- CRUD operations for Orders, Users and Trucks
 - Authentication with JWT
-- WebSocket messaging for real-time driver-dispatcher communication
+- WebSocket messaging for real-time dispatcher to driver communication
 - MongoDB integration using Mongoose
 
 ---
@@ -149,17 +149,22 @@ Base URL: /api/v1/
 
 - `connect`: Establish socket connection
 - `message`: Send/receive messages to/from trucks
-- `order:update`: Notify clients about order updates
+- `command`: Notify clients about order updates
   
 ---
 
 ## 🛠 Environment Variables
 
-| Name         | Description                  |
-|--------------|------------------------------|
-| `PORT`       | Port number the server runs on |
-| `MONGODB_URI`| MongoDB connection string     |
-| `JWT_SECRET` | Secret key for token signing  |
+| Name                      | Description                    |
+|---------------------------|------------------------------|
+| `PORT`                    | Port number the server runs on |
+| `WEB_SOCKET_PORT`         | Port number the web sockets server runs on |
+| `MONGODB_URI`             | MongoDB connection string     |
+| `JWT_SECRET`              | Secret key for token signing  |
+| `AWS_REGION`              | Secret key for token signing  |
+| `AWS_BUCKET_NAME`         | Secret key for token signing  |
+| `AWS_ACCESS_KEY_ID`       | AWS ACCESS KEY ID  |
+| `AWS_SECRET_ACCESS_KEY`   | AWS SECRET ACCESS KEY  |
 
 --- 
 ## 📄 License
