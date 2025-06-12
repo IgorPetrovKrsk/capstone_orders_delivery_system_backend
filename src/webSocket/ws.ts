@@ -38,11 +38,20 @@ export default function startWebSocket() {
                 return;
             }
 
+            if (data.truck && data.command){
+                const recieverWs = userSocketArray.find(it=> it.user.truck == data.truck._id)?.ws;
+                if (recieverWs){
+                    recieverWs.send(JSON.stringify({command:data.command}));                    
+                }
+                return;
+            }
+
             if (data.truck && data.message){
                 const recieverWs = userSocketArray.find(it=> it.user.truck == data.truck._id)?.ws;
                 if (recieverWs){
                     recieverWs.send(JSON.stringify({from:data.from.username,message:data.message}));                    
                 }
+                return;
             }
         });
 
