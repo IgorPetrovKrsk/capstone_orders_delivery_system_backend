@@ -1,8 +1,8 @@
 # 🚛 Transport Management System backend
 
-[FrondEnd GitHub](https://github.com/IgorPetrovKrsk/capstone_orders_delivery_system_frontend)
+[🔧 FrondEnd GitHub](https://github.com/IgorPetrovKrsk/capstone_orders_delivery_system_frontend)
 
-[Deployment link](https://transport-management-system-cca4.onrender.com)
+[🔗 Deployment link](https://transport-management-system-cca4.onrender.com)
 
 ## 📘 Overview
 
