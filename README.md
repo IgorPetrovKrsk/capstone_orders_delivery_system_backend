@@ -4,6 +4,34 @@
 
 [Deployment link](https://transport-management-system-cca4.onrender.com)
 
+## 📘 Overview
+
+This is the backend service for the Transport Management System. It handles user authentication, order management, truck assignments, and real-time messaging via WebSockets.
+
+---
+
+## 🚀 Features
+
+- User roles: Admin, Dispatcher, Driver
+- CRUD operations for Orders and Trucks
+- Authentication with JWT
+- WebSocket messaging for real-time driver-dispatcher communication
+- MongoDB integration using Mongoose
+
+---
+
+## ⚙️ Tech Stack
+
+- Node.js
+- Express.js
+- MongoDB + Mongoose
+- JWT Authentication
+- WebSocket
+- TypeScript
+- AWS S3 Bucket
+
+---
+
 # 📦 Transport Management System – Data Model
 
 ## 📐 Data Model Overview
@@ -75,4 +103,69 @@ This system involves **4 main entities**:
 | `senderId` | number (optional)| User ID of the sender (e.g., dispatcher)   |
 
 ---
+
+##📫 API Endpoints
+Base URL: /api/v1/
+
+🚚 Trucks
+| Method | Endpoint            | Auth Required | Roles Allowed     | Description          |
+| ------ | ------------------- | ------------- | ----------------- | -------------------- |
+| GET    | `/trucks`           | ✅             | All Authenticated | Get all trucks       |
+| GET    | `/trucks/available` | ✅             | Dispatcher only   | Get available trucks |
+| POST   | `/trucks`           | ✅             | Dispatcher only   | Create a new truck   |
+| PUT    | `/trucks/:truckId`  | ✅             | Dispatcher only   | Update a truck by ID |
+| DELETE | `/trucks/:truckId`  | ✅             | Dispatcher only   | Delete a truck by ID |
+
+📦 Orders
+| Method | Endpoint                            | Auth Required | Roles Allowed     | Description                             |
+| ------ | ----------------------------------- | ------------- | ----------------- | --------------------------------------- |
+| GET    | `/orders`                           | ✅             | Dispatcher only   | Get all orders                          |
+| GET    | `/orders/undeliveredOrdersByUserId` | ✅             | All Authenticated | Get undelivered orders for current user |
+| GET    | `/orders/pendingassignedorders`     | ✅             | Dispatcher only   | Get all pending and assigned orders     |
+| POST   | `/orders`                           | ✅             | Dispatcher only   | Create a new order                      |
+| PUT    | `/orders/return/:orderId`           | ✅             | All Authenticated | Mark order as returned                  |
+| PUT    | `/orders/deliver/:orderId`          | ✅             | All Authenticated | Mark order as delivered                 |
+| PUT    | `/orders/:orderId`                  | ✅             | Dispatcher only   | Update an order by ID                   |
+| DELETE | `/orders/:orderId`                  | ✅             | Dispatcher only   | Delete an order by ID                   |
+
+👤 Users
+| Method | Endpoint         | Auth Required | Roles Allowed     | Description                  |
+| ------ | ---------------- | ------------- | ----------------- | ---------------------------- |
+| POST   | `/users/login`   | ❌             | Public            | User login, returns token    |
+| POST   | `/users`         | ✅             | Admin only        | Create a new user            |
+| GET    | `/users`         | ✅             | Admin only        | Get all users                |
+| GET    | `/users/user`    | ✅             | All Authenticated | Get currently logged-in user |
+| PUT    | `/users/:userId` | ✅             | Admin only        | Update a user by ID          |
+| DELETE | `/users/:userId` | ✅             | Admin only        | Delete a user by ID          |
+
+☁️ AWS S3 Upload URL
+| Method | Endpoint  | Auth Required | Roles Allowed     | Description                             |
+| ------ | --------- | ------------- | ----------------- | --------------------------------------- |
+| GET    | `/s3-url` | ✅             | All Authenticated | Get a pre-signed S3 URL to upload image |
+
+---
+
+## 🌐 WebSocket Events
+
+- `connect`: Establish socket connection
+- `message`: Send/receive messages to/from trucks
+- `order:update`: Notify clients about order updates
+  
+---
+
+## 🛠 Environment Variables
+
+| Name         | Description                  |
+|--------------|------------------------------|
+| `PORT`       | Port number the server runs on |
+| `MONGODB_URI`| MongoDB connection string     |
+| `JWT_SECRET` | Secret key for token signing  |
+
+--- 
+## 📄 License
+
+MIT License © 2025 Igor Petrov
+
+---
+
 
