@@ -1,9 +1,9 @@
-import {Request,Response} from 'express'
-function getRootHateoas(req:Request, res:Response) {
+import { Request, Response } from 'express'
+function getRootHateoas(req: Request, res: Response) {
     res.json({
         links: [
             {
-                href: '/',
+                href: '/api/v1',
                 rel: 'this',
                 type: 'GET',
             },
@@ -22,8 +22,18 @@ function getRootHateoas(req:Request, res:Response) {
                 rel: 'orders',
                 type: 'GET',
             },
+            {
+                href: '/users',
+                rel: 'users',
+                type: 'GET',
+            },
+            {
+                href: '/s3-url',
+                rel: 'AWS_POST_URL',
+                type: 'GET',
+            },
         ],
     });
 }
 
-export default {getRootHateoas}
+export default { getRootHateoas }
